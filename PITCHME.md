@@ -17,80 +17,53 @@
       应用时长、页面跳转、自定义事件（计数事件、计算事件）
 +++
 ## 一.集成配置
-采用私有Maven自动集成
 ### 1.1 Project build.gradle
-项目gradle文件添加县市报的私有Maven仓库路径：
+添加县市报的私有Maven仓库路径：
 ```groovy
 buildscript {
     repositories {
-        
-        //...
-        
+    
         // 添加县市报本地Maven仓库
         maven { url "http://10.100.62.98:8086/nexus/content/groups/public" }
-        
-        //...
     }
-    //...
 }
-  
-//...
-  
 allprojects {
     repositories {
         
-        //...
-        
         // 添加县市报本地Maven仓库
         maven { url "http://10.100.62.98:8086/nexus/content/groups/public" }       
-        
-        //...
     }
 }
 ```
-  
++++
 ### 1.2 App build.gradle
-app gradle的minSdkVersion不得小于15，添加所需的配置占位placeholder：
+minSdkVersion不得小于15
 ```groovy
 android {
     compileSdkVersion 26
     defaultConfig {
-    
-        //...
         
         // 最小支持sdk=15
         minSdkVersion 15
-        
-        //...
         
         manifestPlaceholders = [
                             "UMENG_APP_KEY": UMENG_APP_KEY,     //友盟App Key
                             "QQ_APP_ID"    : QQ_APP_ID,         //QQ AppId
                             "_packagename" : _packagename       //主项目包名
         ]
-        
-        //...
     }
 }
-  
-//...
-  
 dependencies {
- 
-    //...
     
     // 县市报友盟助手
-    implementation 'com.xsb.umeng:xsb-umeng-tools:1.0.1-SNAPSHOT'
-    
-    //...
+    implementation 'com.xsb.umeng:xsb-umeng-tools:1.0.2-SNAPSHOT'.
 }
-  
 configurations.all {
     // 针对使用SNAPSHOT，每次不更新的问题。当有新的SNAPSHOT提交，只需要更改数字后同步即可
     resolutionStrategy.cacheChangingModulesFor 4, 'seconds'
 }
 ```
-  
++++
 ### 1.3 添加回调Activity
 微信和钉钉需要在app包下新建各自的回调Activity：
 
@@ -104,7 +77,7 @@ configurations.all {
 public class WXEntryActivity extends WXCallbackActivity {
 }
 ```
-  
+
 * 钉钉路径：
 
   your_package_name.ddshare.DDShareActivity，并且继承DingCallBack
@@ -115,7 +88,7 @@ public class WXEntryActivity extends WXCallbackActivity {
 public class DDShareActivity extends DingCallBack {
 }
 ```
-  
++++
 ### 1.4 配置各平台账号 gradle.properties
 需要在项目的gradle.properties文件内填写以下所需的账号信息，填充ManifestPlaceHolder：
 ```properties
