@@ -666,6 +666,10 @@ UMengAnalytics.setAnalyticsWithUser("QQ","40745050");               // 或者如
 ```
 UMengAnalytics.setAnalyticsWithoutUser();                           // 解绑统计账号
 ```
+---
+完
+
+Thanks
          
          
             
