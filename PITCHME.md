@@ -511,7 +511,7 @@ protected void onDestroy() {
 建议在app启动时尽早获取，因为涉及页面统计
 +++
 ### 5.2 应用时长
-统计用户使用app的时间长度，onResume和onPause中添加：
+app的使用时长，onResume和onPause中添加：
 ```
 @Override
 protected void onResume() {
@@ -570,6 +570,7 @@ new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .record();
 ```
++++
         2.发送事件ID和事件标签：
 ```
 new UMengAnalytics.CountEvent(context)
@@ -577,15 +578,17 @@ new UMengAnalytics.CountEvent(context)
                             .label(label)
                             .record();
 ```
++++
         3.发送事件ID和事件属性键值对，用来详细描述事件的属性：
 ```
 new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .withMap(Map<String,String> extras)
                             .record();
-                                                
+```        
++++
 或者
-  
+``` 
 new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .with(key1,value1)
@@ -598,7 +601,7 @@ new UMengAnalytics.CountEvent(context)
 * 计算事件
   
   计算事件是用来记录事件的消费时间长度或者有价值的数值统计，例如用户看了某个视频多长秒，等等。每个事件对应有一个32位整形参数：
-
++++
         1.只发送事件ID和事件值：
 ```
 new UMengAnalytics.CalculateEvent(context)
@@ -606,6 +609,7 @@ new UMengAnalytics.CalculateEvent(context)
                             .duration(value)
                             .record();
 ```
++++
         2.发送事件ID、事件属性和事件值：
 ```
 new UMengAnalytics.CalculateEvent(context)
@@ -613,9 +617,10 @@ new UMengAnalytics.CalculateEvent(context)
                             .withMap(extras)
                             .duration(value)
                             .record();
-                    
+```
++++
 或者
-  
+```
 new UMengAnalytics.CalculateEvent(context)
                             .id(eventId)
                             .with(key1,value1)
@@ -638,6 +643,7 @@ System.exit(0);
 +++  
 ### 5.6 其他注意事项
 如果需要按照app自身账号体系来统计数据，则参考以下方式：
++++
 * app启动时读取之前的登录状态，如果已经登录，则在友盟助手初始化时即可绑定之前登录的账户：
 
 ```
@@ -647,12 +653,14 @@ UMengTools.create(applicationContext)
             .setAnalyticsWithUser("QQ","40745050")                  // 或者如果之前是第三方登录的，则可以绑定第三方的用户账号
             ...
 ```
++++
 * 若app启动时未登录，则用户登录后，可以调用以下方法进行统计账号的绑定：
 
 ```
 UMengAnalytics.setAnalyticsWithUser("10035");                       // 按app自有账号系统进行统计
 UMengAnalytics.setAnalyticsWithUser("QQ","40745050");               // 或者如果是第三方登录的，则可以绑定第三方的用户账号
 ```
++++
 * 若账号退出时需要解绑统计账号，则可以如下调用进行统计账号的解绑：
 
 ```
