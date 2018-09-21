@@ -77,7 +77,7 @@ configurations.all {
 public class WXEntryActivity extends WXCallbackActivity {
 }
 ```
-
++++
 * 钉钉路径：
 
   your_package_name.ddshare.DDShareActivity，并且继承DingCallBack
@@ -101,13 +101,15 @@ QQ_APP_ID=1107128079
 # App的包名
 _packagename = com.zjonline.xsb_tools.umeng.demo
 ```
-  
++++
 ### 1.5 App AndroidManifest.xml
 友盟相关的配置已经集成在lib aar的AndroidManifest文件中，app打包时会自动合并清单
++++
 ### 1.6 App 混淆
 友盟的免混淆配置已经保存在aar中，app混淆打包时会自动合并混淆配置清单
+---
 ## 二、初始化
-建议在Application中进行友盟助手的初始化：
+Application中初始化：
 ```
 UMengTools.create(applicationContext)
                 /**
@@ -168,15 +170,17 @@ UMengTools.create(applicationContext)
                  // 是否启用错误日志的抓取上报，默认true
                 .setAnalyticsWithExceptions(true);
 ```
-  
+---
 ## 三、分享
 目前lib支持的分享平台为：
 ![avatar](http://10.100.62.91/xsb/XSBUmeng/raw/aaacacf14a9aad52f8daee6ed4123922fe60e260/platform.png)
++++
 ### 3.1 权限
 友盟分享需要以下两项系统权限，需要app自行实现权限检测和用户交互：
 
     1.  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     2.  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
++++
 ### 3.2 类型
 目前lib支持三种类型的社交内容分享：
 * 纯文本 （QQ好友除外）
@@ -188,6 +192,7 @@ UMengTools.create(applicationContext)
                         .callback(mUMengShareSimpleListener)    // 分享回调
                         .share();
     ```
++++
 * 图片
 
     ```
@@ -203,6 +208,7 @@ UMengTools.create(applicationContext)
                         .callback(mUMengShareSimpleListener)    // 分享回调
                         .share();
     ```
++++
 * 链接
 
     ```
@@ -221,9 +227,8 @@ UMengTools.create(applicationContext)
                         .callback(mUMengShareSimpleListener)    // 分享回调
                         .share();
     ```
-  
++++
 ### 3.3 回调
-分享回调有完整版和精简包装，按需调用：
 ```java
 /**
  * 分享回调精简
@@ -292,9 +297,9 @@ public abstract class UMengShareSimpleListener implements UMengShareListener {
     
 }
 ```
-  
++++
 ### 3.4 onActivityResult
-QQ和新浪微博分享回调，需要在对应调用分享的Activity的onActivityResult中调用添加如下操作：
+QQ和新浪微博分享：
 ```
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -304,9 +309,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     UMengTools.onActivityResult(this, requestCode, resultCode, data);
 }
 ```
-  
++++
 ### 3.5 销毁
-分享对象需要在Activity销毁的时候进行释放，避免内存溢出：
+分享对象释放
 ```
 @Override
 protected void onDestroy() {
@@ -316,7 +321,7 @@ protected void onDestroy() {
     super.onDestroy();
 }
 ```
-  
+---
 ## 四、第三方登录
 友盟目前尚不支持钉钉的第三方登录授权，因此lib现在支持以下三个平台：
 * QQ
@@ -327,7 +332,7 @@ protected void onDestroy() {
 * 新浪微博
   
    需要在新浪微博开放平台上注册app，并已上线才能通过审核，demo暂时未上线应用市场，无法完成微博的授权登录）
-   
++++ 
 ### 4.1 登录授权
 ```
 new UMengOAuth(activity)
@@ -335,9 +340,8 @@ new UMengOAuth(activity)
             .callback(mUMengOAuthListener)                  // 授权回调          
             .login();
 ```
-  
++++ 
 ### 4.2 授权回调
-授权回调有完整版和精简包装，按需调用：
 ```java
 /**
  * 第三方登录授权回调
@@ -397,9 +401,9 @@ public abstract class UMengOAuthSimpleListener implements UMengOAuthListener {
     
 }
 ```
-  
++++
 ### 4.3 用户信息
-授权成功后，回调会返回用户在对应平台上的基本信息，供app账号体系使用
+授权成功返回用户基本信息
 ```java
 /**
  * 第三方登录授权获取的用户信息
@@ -443,7 +447,7 @@ public class UMengOAuthUserInfo {
     private String yellow_vip_level;                        // 黄钻等级（QQ）
 }
 ```
-  
++++
 ### 4.4 onActivityResult
 授权登录也需要在Activity的onActivityResult传递返回值：
 ```
@@ -455,9 +459,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     UMengTools.onActivityResult(this, requestCode, resultCode, data);
 }
 ```
-  
++++
 ### 4.5 删除授权
-用户退出登录或其他需要清除授权状态的，需要调用删除授权接口：
+用户退出登录或其他需要清除授权状态：
 ```
 //删除全部平台的授权
 UMengOAuth.clearOAuth(Context activity);
@@ -465,9 +469,9 @@ UMengOAuth.clearOAuth(Context activity);
 //删除指定平台的授权
 UMengOAuth.clearOAuth(Context activity,PlatformType... platformTypes);
 ```
-  
++++
 ### 4.6 销毁
-第三方登录授权在Activity销毁时也需要释放相关对象，避免内存溢出
+释放相关对象
 ```
 @Override
 protected void onDestroy() {
@@ -477,7 +481,7 @@ protected void onDestroy() {
     super.onDestroy();
 }
 ```
-  
+---  
 ## 五、统计
 测试统计前必须先完成以下步骤：
 * 在友盟后台中开启App的集成测试功能
@@ -490,7 +494,7 @@ protected void onDestroy() {
     ```
     {"device_id":"861337030615565","mac":"74:ac:5f:99:79:98"}
     ``` 
-  
++++
 友盟统计主要分为以下几种情况：
 
     一、应用时长
@@ -498,16 +502,16 @@ protected void onDestroy() {
     三、自定义事件
         1.计数事件
         2.计算事件
-        
++++     
 ### 5.1 权限
 友盟统计需要以下系统权限，需要app自行实现权限检测和用户交互：
 
     1.  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     
 建议在app启动时尽早获取，因为涉及页面统计
-  
++++
 ### 5.2 应用时长
-统计用户使用app的时间长度，只需要在所有Activity的onResume和onPause中添加如下代码：
+统计用户使用app的时间长度，onResume和onPause中添加：
 ```
 @Override
 protected void onResume() {
@@ -527,21 +531,21 @@ protected void onPause() {
     UMengAnalytics.onPageEnd(this, null);
 }
 ```
-  
++++
 注意事项：
   
 * onPageStart和onPageEnd必须成对调用
   
 * 不能线性交叉调用，必须保证前一对调用完成，才能线性开始下一对调用，不然统计数据不准确
-  
++++ 
 ### 5.3 页面跳转
-* 只记录Activity的页面跳转，不细化到Activity内部的Fragment或View时，只需要上一节应用时长统计时加上页面名称参数即可：
+* 只记录Activity的页面跳转：
 ```
 UMengAnalytics.onPageStart(activity, "activity name");
 UMengAnalytics.onPageEnd(activity, "activity name");
 ```
   
-* 记录Activity内的Fragment或View的跳转，则需要以下两步：
+* 记录Activity内的Fragment或View的跳转：
      
         1.对应的Activity只记录停留时长
        
@@ -553,12 +557,13 @@ UMengAnalytics.onPageEnd(activity, "activity name");
         UMengAnalytics.onPageStart("page name");
         UMengAnalytics.onPageEnd("page name");
   ```
-    
++++    
 ### 5.4 自定义事件
 * 计数事件
   
   计数事件是用来记录事件的发生次数，每个事件对应一个唯一的事件ID，需要在友盟后台添加所需要的事件ID：
 
++++
         1.只发送事件ID：
 ```
 new UMengAnalytics.CountEvent(context)
@@ -589,6 +594,7 @@ new UMengAnalytics.CountEvent(context)
                             .record();
 
 ```
++++
 * 计算事件
   
   计算事件是用来记录事件的消费时间长度或者有价值的数值统计，例如用户看了某个视频多长秒，等等。每个事件对应有一个32位整形参数：
@@ -619,7 +625,7 @@ new UMengAnalytics.CalculateEvent(context)
                             .record();
 
 ```
-  
++++ 
 ### 5.5 杀进程
 如果遇到手动杀app进程的情况，需要在kill之前调用如下方法，保证之前的统计数据得到保存：
 ```
@@ -629,7 +635,7 @@ UMengAnalytics.onKillProcess(context);
 System.exit(0);
 ...
 ```
-  
++++  
 ### 5.6 其他注意事项
 如果需要按照app自身账号体系来统计数据，则参考以下方式：
 * app启动时读取之前的登录状态，如果已经登录，则在友盟助手初始化时即可绑定之前登录的账户：
