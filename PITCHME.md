@@ -228,6 +228,13 @@ UMengTools.create(applicationContext)
                         .share();
     ```
 +++
+* 复制链接
+    ```
+    new UMengShare.LinkBuilder(activity)
+                            .url(linkUrl)
+                            .copyLink(mUMengShareSimpleListener);
+    ```
++++
 ### 3.3 回调
 ```java
 /**
