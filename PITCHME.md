@@ -573,36 +573,43 @@ UMengAnalytics.onPageEnd(activity, "activity name");
 +++
         1.只发送事件ID：
 ```
+    
 new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .record();
+                     
 ```
 +++
         2.发送事件ID和事件标签：
 ```
+    
 new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .label(label)
                             .record();
+             
 ```
 +++
         3.发送事件ID和事件属性键值对，用来详细描述事件的属性：
 ```
+    
 new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .withMap(Map<String,String> extras)
                             .record();
+                        
 ```        
 +++
 或者
 ``` 
+    
 new UMengAnalytics.CountEvent(context)
                             .id(eventId)
                             .with(key1,value1)
                             .with(key2,value2)
                             .with(key3,value3)
                             .record();
-
+                         
 ```
 +++
 * 计算事件
@@ -611,23 +618,28 @@ new UMengAnalytics.CountEvent(context)
 +++
         1.只发送事件ID和事件值：
 ```
+    
 new UMengAnalytics.CalculateEvent(context)
                             .id(eventId)
                             .duration(value)
                             .record();
+                            
 ```
 +++
         2.发送事件ID、事件属性和事件值：
 ```
+    
 new UMengAnalytics.CalculateEvent(context)
                             .id(eventId)
                             .withMap(extras)
                             .duration(value)
                             .record();
+                            
 ```
 +++
 或者
 ```
+    
 new UMengAnalytics.CalculateEvent(context)
                             .id(eventId)
                             .with(key1,value1)
@@ -635,17 +647,19 @@ new UMengAnalytics.CalculateEvent(context)
                             .with(key3,value3)
                             .duration(value)
                             .record();
-
+    
 ```
 +++ 
 ### 5.5 杀进程
 如果遇到手动杀app进程的情况，需要在kill之前调用如下方法，保证之前的统计数据得到保存：
 ```
+    
 // kill app之前保存统计
 UMengAnalytics.onKillProcess(context);
 ...
 System.exit(0);
 ...
+    
 ```
 +++  
 ### 5.6 其他注意事项
@@ -654,24 +668,30 @@ System.exit(0);
 * app启动时读取之前的登录状态，如果已经登录，则在友盟助手初始化时即可绑定之前登录的账户：
 
 ```
+    
 UMengTools.create(applicationContext)
             ...
             .setAnalyticsWithUser("10035")                          // 按app自有账号系统进行统计
             .setAnalyticsWithUser("QQ","40745050")                  // 或者如果之前是第三方登录的，则可以绑定第三方的用户账号
             ...
+        
 ```
 +++
 * 若app启动时未登录，则用户登录后，可以调用以下方法进行统计账号的绑定：
 
 ```
+    
 UMengAnalytics.setAnalyticsWithUser("10035");                       // 按app自有账号系统进行统计
 UMengAnalytics.setAnalyticsWithUser("QQ","40745050");               // 或者如果是第三方登录的，则可以绑定第三方的用户账号
+    
 ```
 +++
 * 若账号退出时需要解绑统计账号，则可以如下调用进行统计账号的解绑：
 
 ```
+    
 UMengAnalytics.setAnalyticsWithoutUser();                           // 解绑统计账号
+    
 ```
 ---
 完
