@@ -674,7 +674,7 @@ UMengTools.create(applicationContext)
             .setAnalyticsWithUser("10035")                          // 按app自有账号系统进行统计
             .setAnalyticsWithUser("QQ","40745050")                  // 或者如果之前是第三方登录的，则可以绑定第三方的用户账号
             ...
-        
+    
 ```
 +++
 * 若app启动时未登录，则用户登录后，可以调用以下方法进行统计账号的绑定：
@@ -694,7 +694,7 @@ UMengAnalytics.setAnalyticsWithoutUser();                           // 解绑统
     
 ```
 ---
-完
+###完
 
 Thanks
          
